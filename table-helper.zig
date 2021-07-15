@@ -9,6 +9,10 @@ pub fn Table(comptime headers: []const []const u8) type {
             options: std.fmt.FormatOptions,
             writer: anytype,
         ) !void {
+            _ = options;
+            _ = fmt;
+            _ = options;
+            _ = fmt;
             var max_row_len = comptime blk: {
                 var tmp: []const usize = &[_]usize{};
                 inline for (headers) |header| {
@@ -28,6 +32,7 @@ pub fn Table(comptime headers: []const []const u8) type {
             }
 
             inline for (headers) |header, i| {
+                _ = header;
                 try writer.writeAll(header);
                 var j: usize = 1 + max_row_len[i] - header.len;
                 while (j > 0) {
@@ -39,6 +44,7 @@ pub fn Table(comptime headers: []const []const u8) type {
             try writer.writeAll("\n");
 
             inline for (headers) |header, i| {
+                _ = header;
                 var j: usize = max_row_len[i];
                 while (j > 0) {
                     try writer.writeAll("-");

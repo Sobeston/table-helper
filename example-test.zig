@@ -16,7 +16,7 @@ test "usage" {
     defer out.deinit();
     try out.writer().print("{}", .{t});
 
-    std.testing.expectEqualStrings(out.items,
+    try std.testing.expectEqualStrings(out.items,
         \\Version Date       
         \\------- ---------- 
         \\0.7.1   2020-12-13 

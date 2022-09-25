@@ -1,3 +1,6 @@
+[![](https://github.com/Sobeston/table-helper/actions/workflows/CI.yml/badge.svg)]([https://github.com/Sobeston/table-helper/actions/workflows/CI.yml])
+
+
 # table-helper
 
 A small zig package for fmt printing tables.

@@ -8,7 +8,7 @@ pub fn Table(comptime headers: []const []const u8) type {
         const Self = @This();
 
         fn writeRowDelimiter(writer: anytype, max_row_len: [headers.len]usize) !void {
-            inline for (headers) |header, i| {
+            inline for (headers, 0..) |header, i| {
                 _ = header;
                 var j: usize = max_row_len[i];
                 while (j > 0) {
@@ -22,7 +22,7 @@ pub fn Table(comptime headers: []const []const u8) type {
         }
 
         fn writeRow(writer: anytype, row: []const []const u8, max_row_len: [headers.len]usize, last_row: bool) !void {
-            for (row) |column, i| {
+            for (row, 0..) |column, i| {
                 try writer.writeAll(column);
                 var k: usize = 1 + max_row_len[i] - column.len;
                 while (k > 0) {
@@ -54,14 +54,14 @@ pub fn Table(comptime headers: []const []const u8) type {
             };
 
             for (self.data) |row| {
-                for (row) |col, i| {
+                for (row, 0..) |col, i| {
                     if (col.len > max_row_len[i]) {
                         max_row_len[i] = col.len;
                     }
                 }
             }
             if (self.footer) |footer| {
-                for (footer) |col, i| {
+                for (footer, 0..) |col, i| {
                     if (col.len > max_row_len[i]) {
                         max_row_len[i] = col.len;
                     }
@@ -71,7 +71,7 @@ pub fn Table(comptime headers: []const []const u8) type {
             try Self.writeRow(writer, headers, max_row_len, false);
             try Self.writeRowDelimiter(writer, max_row_len);
 
-            for (self.data) |row, i| {
+            for (self.data, 0..) |row, i| {
                 const last_row = self.footer == null and i == self.data.len - 1;
                 try Self.writeRow(writer, &row, max_row_len, last_row);
             }

@@ -21,7 +21,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        zig-version: [0.9.1, master]
+        zig-version: [master]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -34,4 +34,4 @@ jobs:
           zig fmt --check .
       - name: test
         run: |
-          zig test example-test.zig
+          zig build test

@@ -6,8 +6,7 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
     const target = b.standardTargetOptions(.{});
 
-    b.addModule(.{
-        .name = MODULE,
+    _ = b.addModule(MODULE, .{
         .source_file = .{ .path = "table-helper.zig" },
     });
 

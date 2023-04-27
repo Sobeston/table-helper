@@ -24,15 +24,14 @@ pub fn Table(comptime headers: []const []const u8) type {
             };
 
             for (self.data) |row| {
-                for (row) |col, i| {
+                for (row, 0..) |col, i| {
                     if (col.len > max_row_len[i]) {
                         max_row_len[i] = col.len;
                     }
                 }
             }
 
-            inline for (headers) |header, i| {
-                _ = header;
+            inline for (headers, 0..) |header, i| {
                 try writer.writeAll(header);
                 var j: usize = 1 + max_row_len[i] - header.len;
                 while (j > 0) {
@@ -43,7 +42,7 @@ pub fn Table(comptime headers: []const []const u8) type {
 
             try writer.writeAll("\n");
 
-            inline for (headers) |header, i| {
+            inline for (headers, 0..) |header, i| {
                 _ = header;
                 var j: usize = max_row_len[i];
                 while (j > 0) {
@@ -55,8 +54,8 @@ pub fn Table(comptime headers: []const []const u8) type {
 
             try writer.writeAll("\n");
 
-            for (self.data) |d, i| {
-                for (d) |column, j| {
+            for (self.data, 0..) |d, i| {
+                for (d, 0..) |column, j| {
                     try writer.writeAll(column);
                     var k: usize = 1 + max_row_len[j] - column.len;
                     while (k > 0) {
